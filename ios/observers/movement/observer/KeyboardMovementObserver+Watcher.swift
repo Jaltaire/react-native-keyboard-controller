@@ -29,6 +29,14 @@ extension KeyboardMovementObserver {
     let (visibleKeyboardHeight, keyboardFrameY) = keyboardTrackingView.view.frameTransitionInWindow
     var keyboardPosition = visibleKeyboardHeight - KeyboardAreaExtender.shared.offset
 
+    if transitionTarget == 0 {
+      keyboardPosition = KeyboardRemnant.position(
+        tracked: keyboardPosition,
+        start: transitionStart,
+        remnant: keyboardTrackingView.view.frameDestinationInWindow - KeyboardAreaExtender.shared.offset
+      )
+    }
+
     if keyboardPosition == prevKeyboardPosition || keyboardFrameY == 0 {
       return
     }

@@ -28,6 +28,8 @@ extension KeyboardMovementObserver {
       onNotify("KeyboardController::keyboardWillShow", buildEventParams(self.keyboardHeight, duration, tag))
 
       setupKeyboardWatcher()
+      transitionStart = prevKeyboardPosition
+      transitionTarget = self.keyboardHeight
       initializeAnimation(fromValue: prevKeyboardPosition, toValue: self.keyboardHeight)
       scheduleDidEvent(height: self.keyboardHeight, duration: animation?.duration ?? CGFloat(duration) / 1000)
     }
@@ -50,6 +52,8 @@ extension KeyboardMovementObserver {
 
     setupKeyboardWatcher()
     removeKVObserver()
+    transitionStart = prevKeyboardPosition
+    transitionTarget = 0
     initializeAnimation(fromValue: prevKeyboardPosition, toValue: 0)
     scheduleDidEvent(height: 0, duration: animation?.duration ?? CGFloat(duration) / 1000)
   }

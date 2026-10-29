@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 public extension UIView {
+  static var isInsideAnimationBlock: Bool {
+    inheritedAnimationDuration > 0
+  }
+
   var globalFrame: CGRect? {
     let rootView = UIApplication.shared.activeWindow?.rootViewController?.view
     return superview?.convert(frame, to: rootView)
@@ -63,6 +67,13 @@ public extension Optional where Wrapped == UIView {
     }
 
     return (position, frameY)
+  }
+
+  var frameDestinationInWindow: Double {
+    let frameY = self?.frame.origin.y ?? 0
+    let windowH = self?.window?.bounds.size.height ?? 0
+
+    return windowH - frameY
   }
 
   func isVisibleInHierarchy(initial: Bool = true) -> Bool {

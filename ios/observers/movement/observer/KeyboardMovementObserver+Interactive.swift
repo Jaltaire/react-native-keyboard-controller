@@ -26,7 +26,7 @@ extension KeyboardMovementObserver {
       return
     }
     // if we are currently animating keyboard -> we need to ignore values from KVO
-    if !displayLink.isPaused {
+    if !displayLink.isPaused || UIView.isInsideAnimationBlock {
       return
     }
 
